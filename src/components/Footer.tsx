@@ -1,13 +1,8 @@
 import { Profile } from "@/lib/content";
 
-async function getYear() {
-  "use cache";
-  return new Date().getFullYear();
-}
+const year = new Date().getFullYear();
 
-export default async function Footer({ profile }: { profile: Profile }) {
-  const year = await getYear();
-
+export default function Footer({ profile }: { profile: Profile }) {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-10">
