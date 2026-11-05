@@ -10,11 +10,11 @@ export default function Footer({ profile }: { profile: Profile }) {
           © {year} {profile.fullName || profile.name}. Built in black &amp; white.
         </p>
         <div className="flex gap-6">
-          <a href={`mailto:${profile.email}`} className="transition hover:text-foreground">
+          <a href={`mailto:${profile.email}`} className="link-sweep hover:text-foreground">
             {profile.email}
           </a>
           {profile.linkedin && (
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="transition hover:text-foreground">
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="link-sweep hover:text-foreground">
               LinkedIn
             </a>
           )}

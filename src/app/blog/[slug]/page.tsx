@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPost, getBlogPosts } from "@/lib/content";
+import Reveal from "@/components/Reveal";
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -21,8 +22,8 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   if (!post) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-20 md:px-10">
-      <Link href="/blog" className="text-sm text-muted underline underline-offset-4">
+    <Reveal as="article" className="mx-auto max-w-3xl px-6 py-20 md:px-10">
+      <Link href="/blog" className="link-sweep text-sm text-muted">
         ← Back to blog
       </Link>
       <p className="mt-8 text-sm text-muted">
@@ -38,11 +39,11 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           href={post.link}
           target="_blank"
           rel="noreferrer"
-          className="mt-10 inline-block rounded-full border border-foreground px-5 py-2 text-sm transition hover:bg-foreground hover:text-background"
+          className="hover-lift mt-10 inline-block rounded-full border border-foreground px-5 py-2 text-sm transition-colors hover:bg-foreground hover:text-background"
         >
           Read the full article ↗
         </a>
       )}
-    </article>
+    </Reveal>
   );
 }
