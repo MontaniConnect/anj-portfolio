@@ -159,6 +159,33 @@ export async function getCertifications(): Promise<Certification[]> {
   );
 }
 
+export type Project = {
+  slug: string;
+  title: string;
+  role: string;
+  stack: string;
+  period: string;
+  tag: string;
+  link: string;
+  bodyHtml: string;
+};
+
+export async function getProjects(): Promise<Project[]> {
+  const records = parseRecords(readContentFile("projects.md"));
+  return Promise.all(
+    records.map(async (r) => ({
+      slug: slugify(r.title),
+      title: r.title,
+      role: r.fields.Role ?? "",
+      stack: r.fields.Stack ?? "",
+      period: r.fields.Period ?? "",
+      tag: r.fields.Tag ?? "",
+      link: r.fields.Link ?? "",
+      bodyHtml: await markdownToHtml(r.body),
+    }))
+  );
+}
+
 export type BlogPost = {
   slug: string;
   title: string;

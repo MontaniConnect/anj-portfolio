@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getProfile, getPortfolioItems, getCertifications, getBlogPosts } from "@/lib/content";
+import { getProfile, getPortfolioItems, getProjects, getCertifications, getBlogPosts } from "@/lib/content";
 import Reveal from "@/components/Reveal";
 
 export default async function Home() {
   const profile = getProfile();
   const portfolio = await getPortfolioItems();
+  const projects = await getProjects();
   const certifications = await getCertifications();
   const posts = await getBlogPosts();
 
@@ -91,6 +92,34 @@ export default async function Home() {
                   className="prose-body max-w-2xl text-base leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: item.bodyHtml }}
                 />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects teaser */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:px-10">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display text-4xl sm:text-5xl">Projects</h2>
+            <Link href="/projects" className="link-sweep text-sm">
+              View all →
+            </Link>
+          </Reveal>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.slice(0, 3).map((project, i) => (
+              <Reveal
+                key={project.slug}
+                delay={i * 90}
+                className="hover-lift flex flex-col gap-3 rounded-2xl border border-border p-6 hover:border-foreground/40"
+              >
+                <span className="w-fit rounded-full border border-border px-3 py-1 text-xs uppercase tracking-wide text-muted">
+                  {project.tag}
+                </span>
+                <p className="font-display text-lg">{project.title}</p>
+                <p className="text-sm text-muted">{project.role}</p>
+                {project.stack && <p className="text-sm text-muted">{project.stack}</p>}
               </Reveal>
             ))}
           </div>
